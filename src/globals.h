@@ -13,14 +13,17 @@
 
 #define PUBLIC_KEY_LENGTH 32
 #define ADDRESS_LENGTH 32
+#define TRANSACTION_ID_LENGTH 8
 #define BIP32_PATH 5
 #define AMOUNT_LENGHT 16
 #define TO_SIGN_LENGTH 32
 #define SIGNATURE_LENGTH 64
 #define MAX_AMOUNT_LENGTH 0x10
 #define HASH_SIZE 32
-#define BOC_GENERIC_TAG 0xb5ee9c72
 #define MAX_ROOTS_COUNT 1
+
+#define PRUNED_BRANCH_D1 0b00101000
+#define PRUNED_BRANCH_DATA_SIZE 36
 
 #define MAX_TICKER_LEN 10
 
@@ -64,9 +67,10 @@ typedef struct SignTransactionContext_t {
     uint8_t signature[SIGNATURE_LENGTH];
     char address_str[70];
     char amount_str[40];
+    char transaction_id_str[20];
     uint32_t account_number;
-    uint32_t origin_wallet_type;
-    uint32_t current_wallet_type;
+    uint8_t origin_wallet_type;
+    uint8_t current_wallet_type;
     uint8_t decimals;
     char ticker[MAX_TICKER_LEN];
 } SignTransactionContext_t;
