@@ -11,15 +11,18 @@
 #define P1_CONFIRM 0x01
 #define P1_NON_CONFIRM 0x00
 
+#define P2_EXTEND 0x01
+#define P2_MORE 0x02
+
 #define PUBLIC_KEY_LENGTH 32
 #define ADDRESS_LENGTH 32
 #define TRANSACTION_ID_LENGTH 8
 #define BIP32_PATH 5
 #define AMOUNT_LENGHT 16
 #define TO_SIGN_LENGTH 32
+#define SIGN_MAGIC_LENGTH 4
 #define CHAIN_ID_LENGTH 4
 #define SIGNATURE_LENGTH 64
-#define MAX_AMOUNT_LENGTH 0x10
 #define HASH_SIZE 32
 #define MAX_ROOTS_COUNT 1
 
@@ -27,6 +30,7 @@
 #define PRUNED_BRANCH_DATA_SIZE 36
 
 #define MAX_TICKER_LEN 10
+#define MAX_DATA_LEN 1024
 
 #define WALLET_ID 0x4BA92D8A
 
@@ -62,9 +66,8 @@ typedef struct PublicKeyContext_t {
 } PublicKeyContext_t;
 
 typedef struct SignContext_t {
-    bool sign_with_chain_id;
     uint8_t chain_id[CHAIN_ID_LENGTH];
-    uint8_t to_sign[CHAIN_ID_LENGTH + TO_SIGN_LENGTH];
+    uint8_t to_sign[SIGN_MAGIC_LENGTH + TO_SIGN_LENGTH];
     uint8_t signature[SIGNATURE_LENGTH];
     uint32_t account_number;
     char to_sign_str[73];
@@ -82,6 +85,11 @@ typedef struct SignTransactionContext_t {
     uint8_t origin_wallet_type;
     uint8_t current_wallet_type;
     uint8_t decimals;
+    uint8_t address[ADDRESS_LENGTH];
+    uint8_t prepend_address[ADDRESS_LENGTH];
+    uint8_t wc;
+    uint8_t data[MAX_DATA_LEN];
+    uint16_t data_offset;
     char ticker[MAX_TICKER_LEN];
 } SignTransactionContext_t;
 

@@ -61,7 +61,7 @@ void handleGetAddress(uint8_t p1, uint8_t p2, uint8_t *dataBuffer, uint16_t data
     uint32_t account_number = readUint32BE(dataBuffer + offset);
     offset += sizeof(account_number);
 
-    uint8_t wallet_type = dataBuffer[offset];;
+    uint8_t wallet_type = dataBuffer[offset];
 
     get_address(account_number, wallet_type, data_context.addr_context.address);
 
@@ -71,7 +71,7 @@ void handleGetAddress(uint8_t p1, uint8_t p2, uint8_t *dataBuffer, uint16_t data
     }
     if (p1 == P1_CONFIRM) {
         AddressContext_t* context = &data_context.addr_context;
-        snprintf(context->address_str, sizeof(context->address_str), "%.*H", sizeof(context->address), context->address);
+        format_hex(context->address, sizeof(context->address), context->address_str, sizeof(context->address_str));
         ux_flow_init(0, ux_display_address_flow, NULL);
         *flags |= IO_ASYNCH_REPLY;
         return;

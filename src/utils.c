@@ -5,6 +5,8 @@
 
 #include <stdlib.h>
 
+#ifndef FUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION
+
 void get_public_key(uint32_t account_number, uint8_t* publicKeyArray) {
     cx_ecfp_private_key_t privateKey;
     cx_ecfp_public_key_t publicKey;
@@ -15,6 +17,7 @@ void get_public_key(uint32_t account_number, uint8_t* publicKeyArray) {
             cx_ecfp_generate_pair(CX_CURVE_Ed25519, &publicKey, &privateKey, 1);
         }
         CATCH_OTHER(e) {
+            explicit_bzero(&privateKey, sizeof(privateKey));
             THROW(e);
         }
         FINALLY {
@@ -59,10 +62,11 @@ void get_private_key(uint32_t account_number, cx_ecfp_private_key_t *privateKey)
                                      privateKey);
         }
         CATCH_OTHER(e) {
+            explicit_bzero(&privateKeyData, sizeof(privateKeyData));
             THROW(e);
         }
         FINALLY {
-            explicit_bzero(&privateKey, sizeof(privateKey));
+            explicit_bzero(&privateKeyData, sizeof(privateKeyData));
         }
     }
     END_TRY;
@@ -93,6 +97,8 @@ unsigned int ui_prepro(const bagl_element_t *element) {
     }
     return display;
 }
+
+#endif
 
 void writeUint32BE(uint32_t val, uint8_t *bytes) {
     bytes[0] = (val >> 24) & 0xFF;
@@ -139,6 +145,33 @@ uint8_t leading_zeros(uint16_t value) {
     return lz;
 }
 
+uint16_t format_hex(const uint8_t *in, size_t in_len, char *out, size_t out_len) {
+    if (out_len < 2 * in_len + 1) {
+        return -1;
+    }
+
+    const char hex[] = "0123456789abcdef";
+    size_t i = 0;
+    int written = 0;
+
+    while (i < in_len && (i * 2 + (2 + 1)) <= out_len) {
+        uint8_t high_nibble = (in[i] & 0xF0) >> 4;
+        *out = hex[high_nibble];
+        out++;
+
+        uint8_t low_nibble = in[i] & 0x0F;
+        *out = hex[low_nibble];
+        out++;
+
+        i++;
+        written += 2;
+    }
+
+    *out = '\0';
+
+    return written + 1;
+}
+
 #define SCRATCH_SIZE 37
 uint8_t convert_hex_amount_to_displayable(const uint8_t* amount, uint8_t decimals, uint8_t amount_length, char* out) {
     uint8_t LOOP1 = SCRATCH_SIZE - decimals;
@@ -167,6 +200,7 @@ uint8_t convert_hex_amount_to_displayable(const uint8_t* amount, uint8_t decimal
                 scratch[k] += ((scratch[k] >= 5) ? 3 : 0);
             }
             if (scratch[smin] >= 8) {
+                VALIDATE(smin > 1, ERR_INVALID_DATA);
                 smin -= 1;
             }
             for (k = smin; k < nscratch - 1; k++) {
@@ -192,9 +226,9 @@ uint8_t convert_hex_amount_to_displayable(const uint8_t* amount, uint8_t decimal
     workOffset = offset;
     for (i = 0; i < LOOP2; i++) {
         unsigned char allZero = 1;
-        unsigned char j;
-        for (j = i; j < LOOP2; j++) {
-            if (scratch[workOffset + j] != 0) {
+        unsigned char k;
+        for (k = i; k < LOOP2; k++) {
+            if (scratch[workOffset + k] != 0) {
                 allZero = 0;
                 break;
             }
