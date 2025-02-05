@@ -32,4 +32,10 @@ uint8_t convert_hex_amount_to_displayable(const uint8_t* amount, uint8_t decimal
 
 #define PRINT_LINE() PRINTF("Print line %s: %d\n", __FILE__, __LINE__)
 
+uint8_t set_result_get_address();
+uint8_t set_result_get_public_key();
+uint8_t set_result_sign_transaction();
+uint8_t set_result_sign();
+
+
 #endif
