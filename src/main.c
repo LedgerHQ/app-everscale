@@ -19,7 +19,7 @@
 #include "menu.h"
 #include "apdu_constants.h"
 
-unsigned char G_io_seproxyhal_spi_buffer[IO_SEPROXYHAL_BUFFER_SIZE_B];
+// unsigned char G_io_seproxyhal_spi_buffer[IO_SEPROXYHAL_BUFFER_SIZE_B];
 
 BocContext_t boc_context;
 DataContext_t data_context;
@@ -164,10 +164,10 @@ void app_main(void) {
     return;
 }
 
-// override point, but nothing more to do
-void io_seproxyhal_display(const bagl_element_t *element) {
-    io_seproxyhal_display_default((bagl_element_t*)element);
-}
+// // override point, but nothing more to do
+// void io_seproxyhal_display(const bagl_element_t *element) {
+//     io_seproxyhal_display_default((bagl_element_t*)element);
+// }
 
 unsigned char io_event(unsigned char channel) {
     UNUSED(channel);

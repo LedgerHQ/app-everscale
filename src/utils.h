@@ -4,14 +4,16 @@
 #include "os.h"
 #include "cx.h"
 #include "globals.h"
+#include "ux.h"
 
 #include <stdint.h>
 #include <stdbool.h>
 
-unsigned int ui_prepro(const bagl_element_t *element);
+// unsigned int ui_prepro(const bagl_element_t *element);
 void get_public_key(uint32_t accountNumber, uint8_t* publicKeyArray);
 void get_private_key(uint32_t accountNumber, cx_ecfp_private_key_t *privateKey);
 void send_response(uint8_t tx, bool approve);
+
 
 void writeUint32BE(uint32_t val, uint8_t *bytes);
 void writeUint64BE(uint64_t val, uint8_t *bytes);
