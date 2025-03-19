@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define CELL_DATA_OFFSET 2
+#define CELL_DATA_OFFSET     2
 #define MAX_REFERENCES_COUNT 4
 
 typedef struct Cell_t {

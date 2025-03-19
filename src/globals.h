@@ -8,40 +8,40 @@
 #include "errors.h"
 #include "cell.h"
 
-#define P1_CONFIRM 0x01
+#define P1_CONFIRM     0x01
 #define P1_NON_CONFIRM 0x00
 
 #define P2_EXTEND 0x01
-#define P2_MORE 0x02
+#define P2_MORE   0x02
 
-#define PUBLIC_KEY_LENGTH 32
-#define ADDRESS_LENGTH 32
+#define PUBLIC_KEY_LENGTH     32
+#define ADDRESS_LENGTH        32
 #define TRANSACTION_ID_LENGTH 8
-#define BIP32_PATH 5
-#define AMOUNT_LENGHT 16
-#define TO_SIGN_LENGTH 32
-#define SIGN_MAGIC_LENGTH 4
-#define CHAIN_ID_LENGTH 4
-#define SIGNATURE_LENGTH 64
-#define HASH_SIZE 32
-#define MAX_ROOTS_COUNT 1
+#define BIP32_PATH            5
+#define AMOUNT_LENGHT         16
+#define TO_SIGN_LENGTH        32
+#define SIGN_MAGIC_LENGTH     4
+#define CHAIN_ID_LENGTH       4
+#define SIGNATURE_LENGTH      64
+#define HASH_SIZE             32
+#define MAX_ROOTS_COUNT       1
 
-#define PRUNED_BRANCH_D1 0b00101000
+#define PRUNED_BRANCH_D1        0b00101000
 #define PRUNED_BRANCH_DATA_SIZE 36
 
 #define MAX_TICKER_LEN 10
-#define MAX_DATA_LEN 1024
+#define MAX_DATA_LEN   1024
 
 #define WALLET_ID 0x4BA92D8A
 
-#define MAX_CONTRACT_CELLS_COUNT 7
-#define HASHES_BUFFER_SIZE (MAX_CONTRACT_CELLS_COUNT * HASH_SIZE)
-#define MAX_PUBLIC_KEY_CELL_DATA_SIZE 36 // label(3) + public key(32) + tag(1)
+#define MAX_CONTRACT_CELLS_COUNT      16
+#define HASHES_BUFFER_SIZE            (MAX_CONTRACT_CELLS_COUNT * HASH_SIZE)
+#define MAX_PUBLIC_KEY_CELL_DATA_SIZE 36  // label(3) + public key(32) + tag(1)
 
-#define FLAG_WITH_WALLET_ID 0x01
+#define FLAG_WITH_WALLET_ID    0x01
 #define FLAG_WITH_WORKCHAIN_ID 0x02
-#define FLAG_WITH_ADDRESS 0x04
-#define FLAG_WITH_CHAIN_ID 0x08
+#define FLAG_WITH_ADDRESS      0x04
+#define FLAG_WITH_CHAIN_ID     0x08
 
 void reset_app_context(void);
 
