@@ -22,6 +22,11 @@ enum {
     SURF_WALLET = 6,
     MULTISIG_2 = 7,
     MULTISIG_2_1 = 8,
+    WALLET_V5R1 = 9,
+    WALLET_V4R1 = 10,
+    WALLET_V4R2 = 11,
+    WALLET_V3R1 = 12,
+    WALLET_V3R2 = 13,
 };
 
 enum {
@@ -38,6 +43,15 @@ enum {
     TOKEN_BURN = 1445284013,                // Burn
     TOKEN_TRANSFER = 1944199491,            // Deploy
     TOKEN_TRANSFER_TO_WALLET = 1185535980,  // Ordinary transfer
+};
+
+enum {
+    WALLET_V5R1_SIGNED_EXTERNAL_PREFIX = 0x7369676E,
+    WALLET_V5R1_OUT_ACTION_SEND_MSG = 0x0ec3c86d,
+};
+
+enum {
+    JETTON_TRANSFER = 0x0f8a7ea5,  // TEP-74 Jetton transfer
 };
 
 enum { NORMAL_FLAG = 3, ALL_BALANCE_FLAG = 128, ALL_BALANCE_AND_DELETE_FLAG = 160 };

@@ -1,6 +1,7 @@
 use everscale_ledger_wallet::ledger::WalletType;
 use everscale_ledger_wallet::remote_wallet::RemoteWallet;
-
+use ton_block::MsgAddressInt;
+use ton_types::{AccountId, UInt256};
 use crate::utils::get_ledger;
 
 mod utils;
@@ -18,6 +19,11 @@ fn ledger_get_address() -> anyhow::Result<()> {
     ledger.get_address(0, WalletType::Surf, false)?;
     ledger.get_address(0, WalletType::Multisig2, false)?;
     ledger.get_address(0, WalletType::Multisig2_1, false)?;
+    ledger.get_address(0, WalletType::WalletV5R1, false)?;
+    ledger.get_address(0, WalletType::WalletV4R1, false)?;
+    ledger.get_address(0, WalletType::WalletV4R2, false)?;
+    ledger.get_address(0, WalletType::WalletV3R1, false)?;
+    ledger.get_address(0, WalletType::WalletV3R2, false)?;
 
     Ok(())
 }
